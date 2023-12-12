@@ -13,7 +13,7 @@ export function Layout({ title, children }: LayoutPros) {
             bg-white text-gray-800
         `}>
             <Title>{title}</Title>
-            <div>
+            <div className="p-6">
                 {children}
             </div>
         </div>
