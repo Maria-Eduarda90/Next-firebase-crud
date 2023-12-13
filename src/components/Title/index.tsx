@@ -10,7 +10,7 @@ export function Title({ children }: TitleProps) {
             <h1 className="px-5 py-2 text-2xl">
                 {children}
             </h1>
-            <hr className="border-2 border-purple-500" />
+            <hr className="border-2 border-teal-600" />
         </div>
     );
 }
