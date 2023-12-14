@@ -1,8 +1,11 @@
 'use client'
 
+import { Button } from "@/components/Button";
+import { Form } from "@/components/Form";
 import { Layout } from "@/components/Layout";
 import { Table } from "@/components/Table";
 import { Client } from "@/core/Client";
+import { useState } from "react";
 
 export default function Home() {
 
@@ -22,16 +25,27 @@ export default function Home() {
     console.log('excluido: ', client.getName)
   }
 
+  const [visible, setVisible] = useState<'table' | 'form'>('table');
+
   return (
     <div className="
       flex justify-center items-center h-screen bg-gradient-to-r from-teal-600 to-teal-800 text-white
     ">
       <Layout title="CRUD - FIREBASE">
-        <Table
-          client={client}
-          clientSelected={clientSelected}
-          clientDeleted={clientDeleted}
-        ></Table>
+        {visible === 'table' ? (
+          <>
+            <div className="flex justify-end">
+              <Button color="teal" className="mb-4">Novo cliente</Button>
+            </div>
+            <Table
+              client={client}
+              clientSelected={clientSelected}
+              clientDeleted={clientDeleted}
+            ></Table>
+          </>
+        ) : (
+          <Form client={client[0]} />
+        )}
       </Layout>
     </div>
   )
