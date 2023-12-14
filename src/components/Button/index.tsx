@@ -7,11 +7,7 @@ export interface IButtonProps {
 }
 
 export function Button({ children, color, className }: IButtonProps) {
-    console.log(color)
-
     const setColor = color ?? 'gray';
-
-    console.log(setColor)
 
     return (
         <button className={`
