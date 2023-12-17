@@ -5,9 +5,10 @@ import { Form } from "@/components/Form";
 import { Layout } from "@/components/Layout";
 import { Table } from "@/components/Table";
 import { Client } from "@/core/Client";
-import { useState } from "react";
+import { useVisible } from "@/hook/useVisible";
 
 export default function Home() {
+  const { visible, setVisible } = useVisible();
 
   const client = [
     new Client('Ane', 17, '1'),
@@ -25,7 +26,10 @@ export default function Home() {
     console.log('excluido: ', client.getName)
   }
 
-  const [visible, setVisible] = useState<'table' | 'form'>('table');
+  function saveCustomer(client: Client) {
+    console.log('salvo: ', client);
+    setVisible('table')
+  }
 
   return (
     <div className="
@@ -33,18 +37,28 @@ export default function Home() {
     ">
       <Layout title="CRUD - FIREBASE">
         {visible === 'table' ? (
-          <>
+          <div>
             <div className="flex justify-end">
-              <Button color="teal" className="mb-4">Novo cliente</Button>
+              <Button
+                color="teal"
+                className="mb-4"
+                onClick={() => setVisible('form')}
+              >
+                Novo cliente
+              </Button>
             </div>
             <Table
               client={client}
               clientSelected={clientSelected}
               clientDeleted={clientDeleted}
             ></Table>
-          </>
+          </div>
         ) : (
-          <Form client={client[0]} />
+          <Form
+            client={client[0]}
+            customerChanged={saveCustomer}
+            canceled={() => setVisible('table')}
+          />
         )}
       </Layout>
     </div>
