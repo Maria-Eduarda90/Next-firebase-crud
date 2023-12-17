@@ -6,11 +6,13 @@ import { Layout } from "@/components/Layout";
 import { Table } from "@/components/Table";
 import { Client } from "@/core/Client";
 import { useVisible } from "@/hook/useVisible";
+import { useState } from "react";
 
 export default function Home() {
+  const [client, setClient] = useState<Client>(Client.empty);
   const { visible, setVisible } = useVisible();
 
-  const client = [
+  const customers = [
     new Client('Ane', 17, '1'),
     new Client('Ian', 20, '2'),
     new Client('Carla', 30, '3'),
@@ -19,7 +21,8 @@ export default function Home() {
   ];
 
   function clientSelected(client: Client) {
-    console.log('editado: ', client.getName)
+    setClient(client);
+    setVisible('form');
   };
 
   function clientDeleted(client: Client) {
@@ -29,6 +32,11 @@ export default function Home() {
   function saveCustomer(client: Client) {
     console.log('salvo: ', client);
     setVisible('table')
+  }
+
+  function newClient() {
+    setClient(Client.empty());
+    setVisible('form')
   }
 
   return (
@@ -42,20 +50,20 @@ export default function Home() {
               <Button
                 color="teal"
                 className="mb-4"
-                onClick={() => setVisible('form')}
+                onClick={newClient}
               >
                 Novo cliente
               </Button>
             </div>
             <Table
-              client={client}
+              client={customers}
               clientSelected={clientSelected}
               clientDeleted={clientDeleted}
             ></Table>
           </div>
         ) : (
           <Form
-            client={client[0]}
+            client={client}
             customerChanged={saveCustomer}
             canceled={() => setVisible('table')}
           />
