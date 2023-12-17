@@ -1,5 +1,3 @@
-'use client'
-
 import { Client } from "@/core/Client";
 import { IconEdit } from "../Icons/Edit";
 import { IconTrash } from "../Icons/Trash";
@@ -10,7 +8,7 @@ export interface TableProps {
     clientDeleted?: (client: Client) => void;
 }
 
-export async function Table({ client, clientSelected, clientDeleted }: TableProps) {
+export function Table({ client, clientSelected, clientDeleted }: TableProps) {
 
     const displayActions = clientSelected || clientDeleted;
 
