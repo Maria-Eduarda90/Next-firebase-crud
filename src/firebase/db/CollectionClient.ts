@@ -1,6 +1,6 @@
 import { Client } from "@/core/Client";
 import { RepositoryClient } from "@/core/RepositoryClient";
-import firebase from "firebase/compat/app";
+import firebase from "../config";
 
 export class CollectionClient implements RepositoryClient {
   #conversor = {
