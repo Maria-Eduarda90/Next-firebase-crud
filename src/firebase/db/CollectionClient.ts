@@ -15,7 +15,7 @@ export class CollectionClient implements RepositoryClient {
       options: firebase.firestore.SnapshotOptions
     ): Client {
       const data = snapshot.data(options);
-      return new Client(data.getName, data.getAge, snapshot.id);
+      return new Client(data.name, data.age, snapshot.id);
     },
   };
 
@@ -36,7 +36,12 @@ export class CollectionClient implements RepositoryClient {
 
   async getAll(): Promise<Client[]> {
     const query = await this.collection().get();
-    return query.docs.map((doc) => doc.data()) ?? [];
+    console.log(
+      query.docs.map((doc) => this.#conversor.fromFirestore(doc, {}))
+    );
+    return (
+      query.docs.map((doc) => this.#conversor.fromFirestore(doc, {})) ?? []
+    );
   }
 
   private collection() {
