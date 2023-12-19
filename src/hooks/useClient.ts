@@ -46,8 +46,14 @@ export function useClient(): {
   }
 
   async function saveCustomer(client: Client) {
-    await repo.toSave(client);
-    getAllCustomer();
+    if (client.getName === "") {
+      alert("preencha o campo nome corretamente");
+    } else if (client.getAge <= 0) {
+      alert("a idade não pode ser menor ou igual a 0");
+    } else {
+      await repo.toSave(client);
+      getAllCustomer();
+    }
   }
 
   return {
