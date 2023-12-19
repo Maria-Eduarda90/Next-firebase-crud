@@ -36,9 +36,6 @@ export class CollectionClient implements RepositoryClient {
 
   async getAll(): Promise<Client[]> {
     const query = await this.collection().get();
-    console.log(
-      query.docs.map((doc) => this.#conversor.fromFirestore(doc, {}))
-    );
     return (
       query.docs.map((doc) => this.#conversor.fromFirestore(doc, {})) ?? []
     );
